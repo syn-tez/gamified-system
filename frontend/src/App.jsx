@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [currentUserId] = useState(1); // Наш тестовый ID из SQL-скрипта
+  const [currentUserId] = useState(1);
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [message, setMessage] = useState('');
@@ -26,14 +26,13 @@ function App() {
   // Запрос списка задач с бэкенда
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/tasks');
+      const response = await axios.get(`http://127.0.0.1:8000/user/${currentUserId}/tasks`);
       setTasks(response.data);
     } catch (error) {
       console.error("Не удалось загрузить задачи:", error);
     }
   };
 
-  // Клик по кнопке "Выполнить"
   const completeTask = async (taskId) => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/tasks/complete', {
@@ -53,21 +52,10 @@ function App() {
   return (
     <div style={{ padding: '40px', fontFamily: 'Arial, sans-serif', maxWidth: '600px', margin: '0 auto' }}>
       <h2>Панель управления геймификацией</h2>
-
-      {/* Быстрое переключение ID для теста */}
-      <div style={{ marginBottom: '15px' }}>
-        <input 
-          type="number" 
-          value={currentUserId} 
-          onChange={(e) => { setCurrentUserId(Number(e.target.value)); setMessage(''); }}
-          style={{ width: '50px', padding: '3px', marginLeft: '5px' }}
-        />
-      </div>
       
       {/* Карточка сотрудника с балансом монет */}
       <div style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '10px', background: '#f9f9f9', marginBottom: '30px', position: 'relative' }}>
         
-        {/* Баланс монет в углу карточки */}
         <div style={{ position: 'absolute', top: '20px', right: '20px', background: '#fff9c4', padding: '5px 15px', borderRadius: '20px', border: '1px solid #fbc02d', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}>
           🪙 {user.coins} коинов
         </div>
@@ -107,7 +95,7 @@ function App() {
                 cursor: task.is_done ? 'not-allowed' : 'pointer' 
               }}
             >
-              {task.is_done ? 'Выполнено' : 'Сдать таску'}
+              {task.is_done ? 'Выполнено' : 'Сдать'}
             </button>
           </div>
         ))}
