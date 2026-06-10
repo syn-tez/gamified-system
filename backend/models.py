@@ -5,6 +5,7 @@ class UserDB(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
+    password = Column(String, unique=True, index=True)
     role = Column(String)
     level = Column(Integer, default=1)
     exp = Column(Integer, default=0)
