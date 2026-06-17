@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api'; 
 import '../styles/Authorization.css';   
@@ -10,6 +10,19 @@ export default function Authorization() {
   const [password, setPassword] = useState(''); 
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  // Синхронизируем тему с тегом HTML
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault(); 
@@ -26,50 +39,63 @@ export default function Authorization() {
   };
 
   return (
-    <div className="auth-container">
-      <button onClick={() => navigate('/register')} className="register-link-btn">
-        Регистрация
-      </button>
-
-      <h2 className="auth-title">Вход в систему</h2>
+    <div className="auth-page-wrapper">
       
-      <form onSubmit={handleLogin} className="auth-form">
-        <input 
-          type="text" 
-          placeholder="Введите ваш никнейм" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="auth-input" 
-        />
+      {/* Добавлено: Верхняя панель управления с кнопкой темы */}
+      <div className="auth-top-controls">
+        <button type="button" onClick={toggleTheme} className="theme-btn">
+          {theme === 'dark' ? (
+                    <img src ="/light.svg" alt="Светлая тема" style={{width: '60px', height: '60px' }} />
+                ) : (
+                    <img src ="/dark.svg" alt="Темная тема" style={{width: '60px', height: '60px' }} />
+                )}
+        </button>
+        <button onClick={() => navigate('/register')} className="register-link-btn">
+          [ РЕГИСТРАЦИЯ ]
+        </button>
+      </div>
+
+      <div className="auth-container">
+        <h2 className="auth-title">Вход в систему</h2>
         
-        <div className="password-wrapper">
-          <input
-            type={showPassword ? "text" : "password"} 
-            placeholder="Введите ваш пароль" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} 
-            className="auth-input password-input"
+        <form onSubmit={handleLogin} className="auth-form">
+          <input 
+            type="text" 
+            placeholder="Введите ваш никнейм" 
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="auth-input" 
           />
           
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="password-toggle-btn"
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"} 
+              placeholder="Введите ваш пароль" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} 
+              className="auth-input password-input"
+            />
+            
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="password-toggle-btn"
+            >
+              {showPassword ? "[ O ]" : "[ X ]"}
+            </button>
+          </div>
+          
+          <button 
+            type="submit" 
+            disabled={!username.trim() || !password.trim()} 
+            className="auth-submit-btn"
           >
-            {showPassword ? "[ O ]" : "[ X ]"}
+            Войти
           </button>
-        </div>
-        
-        <button 
-          type="submit" 
-          disabled={!username.trim() || !password.trim()} 
-          className="auth-submit-btn"
-        >
-          Войти
-        </button>
 
-        {error && <div className="auth-error">{error}</div>}
-      </form>
+          {error && <div className="auth-error">{error}</div>}
+        </form>
+      </div>
     </div>
   );
 }

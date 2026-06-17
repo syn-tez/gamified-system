@@ -13,6 +13,12 @@ export default function Profile() {
     const [tasks, setTasks] = useState([]);
     const [message, setMessage] = useState('');
 
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
+
     const loadDataFromBackend = async () => {
         try {
             const userData = await api.getUserProfile(currentUserId);
@@ -27,6 +33,12 @@ export default function Profile() {
     useEffect(() => {
         loadDataFromBackend();
     }, [currentUserId]);
+
+    const toggleTheme = () => {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme);
+        localStorage.setItem('theme', nextTheme);
+    }
 
     const handleCompleteTask = async (taskId) => {
         try {
@@ -54,25 +66,29 @@ export default function Profile() {
     return (
         <div className="profile-page-container">
         
-        {/* Ретро-уведомление */}
         {message && (
             <div className="toast-notification">
                 [!] {message}
             </div>
         )}
 
-        {/* Обновленная кнопка выхода */}
+        <div className="top-controls">
+            <button onClick={toggleTheme} className="theme-btn">
+                {theme === 'dark' ? (
+                    <img src ="/light.svg" alt="Светлая тема" style={{width: '60px', height: '60px' }} />
+                ) : (
+                    <img src ="/dark.svg" alt="Темная тема" style={{width: '60px', height: '60px' }} />
+                )}
+        </button>
+
         <button onClick={handleLogout} className="logout-btn">
             [ ВЫХОД ]
         </button>
+        </div>
 
-        <h2 className="page-title">ЛИЧНЫЙ ПРОФИЛЬ СОТРУДНИКА</h2>
-        
-        <UserProfile user={user} />
-
-        {/* Исправленная надпись */}
+        {/* <h2 className="page-title"></h2> */}
+        {/* <UserProfile user={user} theme={theme} />
         <h3 className="section-title">ВАШИ КВЕСТЫ</h3>
-        
         <div className="tasks-list">
             {tasks.map(task => (
             <TaskCard 
@@ -81,7 +97,15 @@ export default function Profile() {
                 onComplete={handleCompleteTask} 
             />
             ))}
-        </div>
+        </div> */}
+
+        <UserProfile 
+        user={user} 
+        theme={theme} 
+        tasks={tasks} 
+        onComplete={handleCompleteTask} 
+        />
+
         </div>
     );
 }

@@ -1,80 +1,74 @@
-/* Контейнер профиля (две колонки) */
-.user-profile-container {
+/* .user-profile-container {
   display: flex;
-  flex-wrap: wrap; /* Позволяет блокам переноситься на мобильных экранах */
-  gap: 30px;
+  flex-wrap: wrap; 
+  gap: 70px;
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
   font-family: 'VT323', monospace;
-  color: #e8e6e3;
-}
+  color: var(--text-color);
+  margin: 0 auto;
+  font-size: 22px;
+  padding: 24px;
+  box-sizing: border-box;
+} */
 
-/* Базовый стиль для всех пиксельных блоков */
 .pixel-card {
-  background-color: #2d2f34;
-  border: 4px solid #0a0a0c;
-  box-shadow: 8px 8px 0px #0a0a0c;
-  padding: 20px;
+  background-color: var(--card-bg);
+  border: 4px solid var(--border-color);
+  box-shadow: 8px 8px 0px var(--border-color);
+  padding: 18px;
+  box-sizing: border-box;
 }
 
-/* === ЛЕВАЯ КОЛОНКА === */
 .profile-left {
-  flex: 0 0 280px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 .avatar-placeholder {
-  width: 120px;
-  height: 120px;
-  background-color: #1d1e20;
-  border: 4px solid #0a0a0c;
+  width: 160px;
+  height: 170px;
+  background-color: var(--input-bg);
+  border: 4px solid var(--border-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: 40px;
   margin-bottom: 20px;
-  color: #6c707a;
+  color: var(--muted-text);
 }
 
 .username {
-  font-size: 36px;
+  font-size: 46px;
   margin: 0;
   text-transform: uppercase;
-  text-shadow: 2px 2px 0px #0a0a0c;
+  text-shadow: 2px 2px 0px var(--border-color);
 }
 
 .user-role {
-  font-size: 20px;
-  color: #6c707a;
+  font-size: 30px;
+  color: var(--muted-text);
   margin: 10px 0 20px 0;
   text-transform: uppercase;
 }
 
 .user-stats-minimal {
   width: 100%;
-  border-top: 2px dashed #0a0a0c;
+  border-top: 2px dashed var(--border-color);
   padding-top: 15px;
-  font-size: 18px;
-  color: #8c92a0;
+  font-size: 27px;
+  color: var(--muted-text);
   text-align: left;
 }
+
 .user-stats-minimal p {
   margin: 5px 0;
 }
 
-/* === ПРАВАЯ КОЛОНКА === */
-.profile-right {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-/* Верхняя панель статистики */
 .stats-header {
   display: flex;
   justify-content: space-between;
@@ -90,21 +84,26 @@
 }
 
 .stat-label {
-  font-size: 18px;
-  color: #8c92a0;
+  font-size: 30px;
+  color: var(--muted-text);
   margin-bottom: 5px;
 }
 
 .stat-value {
-  font-size: 32px;
-  text-shadow: 2px 2px 0px #0a0a0c;
+  font-size: 45px;
 }
 
 .text-gold {
-  color: #d4af37;
+  color: var(--gold-color);
 }
 
-/* Прогресс-бар опыта */
+.pixel-coin-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
 .exp-section {
   flex: 1;
   min-width: 150px;
@@ -115,51 +114,70 @@
 .exp-bar-wrapper {
   width: 100%;
   height: 20px;
-  background-color: #1d1e20;
-  border: 2px solid #0a0a0c;
+  background-color: var(--input-bg);
+  border: 2px solid var(--border-color);
   margin-top: 5px;
 }
 
 .exp-bar-fill {
   height: 100%;
-  background-color: #4a5e54;
-  border-right: 2px solid #0a0a0c;
+  background-color: var(--accent-color);
+  border-right: 2px solid var(--border-color);
   transition: width 0.3s ease;
 }
 
-/* Секция наград */
 .section-title {
   margin: 0 0 15px 0;
   font-size: 24px;
   text-transform: uppercase;
-  border-bottom: 2px solid #0a0a0c;
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 5px;
 }
 
 .rewards-list {
   display: flex;
   gap: 15px;
+  justify-content: flex-start;
 }
 
 .reward-item {
-  width: 50px;
-  height: 50px;
-  background-color: #1d1e20;
-  border: 2px solid #0a0a0c;
+  width: 54px;
+  height: 54px;
+  background-color: var(--input-bg);
+  border: 4px solid var(--border-color);
+  box-shadow: 4px 4px 0px var(--border-color);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 28px;
+  line-height: 1;
   cursor: help;
 }
 
 .reward-item.locked {
-  color: #3b3d42;
-  border-color: #3b3d42;
+  color: var(--muted-text);
+  border-color: var(--muted-text);
+  box-shadow: 4px 4px 0px var(--muted-text);
+  opacity: 0.5;
+}
+
+.no-tasks-text {
+  font-size: 24px;
+  color: var(--muted-text);
+  text-align: center;
+  padding: 30px 15px;
+  text-transform: uppercase;
+  border: 4px dashed var(--border-color);
+  background-color: var(--input-bg);
+}
+
+.logout-btn {
+  font-size: 24px;
+  color: #ff4d4d;
+  cursor: pointer;
 }
 
 .pixel-loading {
-  font-family: 'VT323', monospace;
-  color: #e8e6e3;
+  color: var(--text-color);
   font-size: 24px;
 }

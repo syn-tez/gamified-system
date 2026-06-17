@@ -1,126 +1,349 @@
-:root, [data-theme="dark"] {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
-
-/* Обнуляем отступы для всей страницы */
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #1d1e20; /* Чтобы при загрузке не было белых вспышек */
+  font-family: 'VT323', monospace;
+  transition: background-color 0.2s ease;
 }
 
-/* Перебиваем стандартные ограничения Vite/CRA, если они есть */
 #root {
   max-width: none !important;
   text-align: initial !important;
+}
+
+:root, html[data-theme="dark"] {
+  --bg-color: #1d1e20;
+  --grid-color: #2d2f34;
+  --card-bg: #2d2f34;
+  --border-color: #0a0a0c;
+  --text-color: #e8e6e3;
+  --muted-text: #8c92a0;
+  --accent-color: #4a5e54;
+  --gold-color: #d4af37;
+  --red-color: #c94f4f;
+  --input-bg: #151618;
+}
+
+html[data-theme="light"] {
+  --bg-color: #f4f1ea;
+  --grid-color: #e4dfd0;
+  --card-bg: #ffffff;
+  --border-color: #1a1917;
+  --text-color: #1a1917;
+  --muted-text: #706e64;
+  --accent-color: #3a5340;
+  --gold-color: #a67c00;
+  --red-color: #ba3c3c;
+  --input-bg: #eae6db;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'VT323', monospace;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.responsive-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+.responsive-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.responsive-column.modifier-left {
+  flex: 0 0 350px;
+}
+
+/* Large desktops */
+@media (min-width: 1025px) {
+  .app-container {
+    padding: 0 24px 24px 24px;
+  }
+}
+
+/* Tablets / small laptops */
+@media (max-width: 1024px) {
+  .app-container {
+    padding: 0 16px 16px 16px;
+  }
+
+  .profile-page-container {
+    padding: 90px 16px 24px !important;
+  }
+
+  .top-controls {
+    right: 16px !important;
+  }
+}
+
+/* Small tablets / landscape phones */
+@media (max-width: 850px) {
+  .app-container {
+    padding: 0 12px 12px 12px;
+  }
+
+  .profile-page-container {
+    padding: 80px 12px 20px !important;
+  }
+
+  .top-controls {
+    top: 12px !important;
+    right: 12px !important;
+    gap: 12px !important;
+  }
+
+  .theme-btn img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .logout-btn {
+    font-size: 20px !important;
+  }
+
+  .responsive-row {
+    gap: 14px;
+  }
+
+  .responsive-column {
+    gap: 14px;
+  }
+
+  .responsive-column.modifier-left {
+    flex: 0 0 220px;
+  }
+
+  .pixel-card {
+    padding: 14px !important;
+  }
+
+  .profile-left {
+    padding: 28px 14px !important;
+  }
+
+  .avatar-placeholder {
+    width: 130px !important;
+    height: 140px !important;
+    font-size: 32px !important;
+  }
+
+  .username {
+    font-size: 34px !important;
+  }
+
+  .user-role {
+    font-size: 24px !important;
+  }
+
+  .user-stats-minimal {
+    font-size: 22px !important;
+  }
+
+  .stat-label {
+    font-size: 24px !important;
+  }
+
+  .stat-value {
+    font-size: 34px !important;
+  }
+
+  .section-title {
+    font-size: 20px !important;
+  }
+
+  .reward-item {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 22px !important;
+  }
+
+  .exp-section {
+    min-width: 120px !important;
+  }
+
+  .task-card {
+    padding: 10px 12px !important;
+  }
+
+  .task-title {
+    font-size: 18px !important;
+  }
+
+  .task-btn {
+    font-size: 14px !important;
+    padding: 6px 10px !important;
+  }
+
+  .task-rewards {
+    font-size: 14px !important;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0 6px 8px 6px;
+  }
+
+  .profile-page-container {
+    padding: 70px 8px 16px !important;
+  }
+
+  .top-controls {
+    top: 8px !important;
+    right: 8px !important;
+    gap: 8px !important;
+  }
+
+  .theme-btn img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .logout-btn {
+    font-size: 16px !important;
+  }
+
+  .responsive-row {
+    gap: 10px;
+  }
+
+  .responsive-column {
+    gap: 10px;
+  }
+
+  .responsive-column.modifier-left {
+    flex: 0 0 115px;
+  }
+
+  .pixel-card {
+    padding: 10px !important;
+    box-shadow: 4px 4px 0px var(--border-color) !important;
+  }
+
+  .profile-left {
+    padding: 18px 8px !important;
+  }
+
+  .avatar-placeholder {
+    width: 90px !important;
+    height: 100px !important;
+    font-size: 24px !important;
+    border-width: 3px !important;
+  }
+
+  .username {
+    font-size: 24px !important;
+    text-shadow: 1px 1px 0px var(--border-color) !important;
+  }
+
+  .user-role {
+    font-size: 18px !important;
+  }
+
+  .user-stats-minimal {
+    font-size: 16px !important;
+    padding-top: 10px !important;
+  }
+
+  .stat-label {
+    font-size: 16px !important;
+  }
+
+  .stat-value {
+    font-size: 24px !important;
+  }
+
+  .section-title {
+    font-size: 16px !important;
+  }
+
+  .exp-bar-wrapper {
+    height: 14px !important;
+  }
+
+  .exp-section {
+    min-width: 80px !important;
+  }
+
+  .pixel-coin-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .reward-item {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 18px !important;
+    border-width: 3px !important;
+  }
+
+  .no-tasks-text {
+    font-size: 16px !important;
+    padding: 16px 10px !important;
+  }
+
+  .stats-header {
+    gap: 8px !important;
+  }
+
+  .task-card {
+    padding: 6px 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .task-title {
+    font-size: 11px !important;
+  }
+
+  .task-rewards {
+    font-size: 10px !important;
+    gap: 4px !important;
+  }
+
+  .task-btn {
+    font-size: 10px !important;
+    padding: 2px 5px !important;
+  }
+}
+
+/* Very narrow phones */
+@media (max-width: 380px) {
+  .responsive-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .responsive-column.modifier-left {
+    flex: 1 1 auto;
+  }
+
+  .responsive-column {
+    gap: 14px;
+  }
+
+  .profile-page-container {
+    padding: 70px 8px 16px !important;
+  }
 }
