@@ -56,7 +56,7 @@ export default function Authorization() {
             onClick={() => setShowPassword(!showPassword)}
             className="password-toggle-btn"
           >
-            {showPassword ? "👁️" : "🙈"}
+            {showPassword ? "[ O ]" : "[ X ]"}
           </button>
         </div>
         

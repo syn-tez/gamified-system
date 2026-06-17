@@ -1,59 +1,55 @@
-.profile-page-container {
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-    padding-top: 20px;
+/* Добавь это в конец твоего Profile.css */
+
+.page-title, .section-title {
+    font-family: 'VT323', monospace;
+    color: #e8e6e3;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #0a0a0c;
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
+/* Стилизация кнопки ВЫХОД */
 .logout-btn {
     position: absolute;
-    top: -10px;
-    right: 0;
-    padding: 6px 12px;
-    background: #f44336;
-    color: #fff;
+    top: 20px;
+    right: 20px;
+    background: transparent;
     border: none;
-    border-radius: 5px;
+    color: #c94f4f; /* Сдержанный красный */
+    font-family: 'VT323', monospace;
+    font-size: 22px;
     cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    transition: background 0.2s;
+    transition: color 0.2s;
 }
 
 .logout-btn:hover {
-    background: #d32f2f;
+    color: #e8e6e3;
+    text-shadow: 2px 2px 0px #c94f4f;
 }
 
-.tasks-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
+/* Ретро-уведомление (Toast) */
 .toast-notification {
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #2e7d32;
-    color: #fff;
-    padding: 15px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #1d1e20;
+    color: #4a5e54;
+    border: 2px solid #4a5e54;
+    padding: 10px 20px;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
     z-index: 1000;
-    font-weight: bold;
-    text-align: center;
-    font-size: 15px;
-    animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    box-shadow: 4px 4px 0px #0a0a0c;
+    text-transform: uppercase;
+    animation: fadeInOut 4s forwards;
 }
 
-@keyframes slideDown {
-    0% {
-        top: -60px;
-        opacity: 0;
-    }
-    100% {
-        top: 20px;
-        opacity: 1;
-    }
+@keyframes fadeInOut {
+    0% { top: -50px; opacity: 0; }
+    10% { top: 20px; opacity: 1; }
+    90% { top: 20px; opacity: 1; }
+    100% { top: -50px; opacity: 0; }
 }
